@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+        <record id="list_property_types_action" model="ir.actions.act_window">
+            <field name="name">Property Types</field>
+            <field name="res_model">estate.property.type</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <record id="get_offer_count_action" model="ir.actions.act_window">
+            <field name="name">Offer Count</field>
+            <field name="type">ir.actions.action_window</field>
+            <field name="res_model">estate.property.offer</field>
+            <field name="view_mode">tree</field>
+            <field name="domain">[('property_type_id', '=', active_id)]</field>
+            <field name="context">{'default_event_id': active_id}</field>
+        </record>
+
+
+
+        <record id="estate_property_type_view_tree" model="ir.ui.view">
+            <field name="name">estate.property.type.tree</field>
+            <field name="model">estate.property.type</field>
+            <field name="arch" type="xml">
+                <tree string="Property Types">
+                    <field string="Name" name="name"/>
+                </tree>
+            </field>
+        </record>
+        <record id="estate_property_type_view_form" model="ir.ui.view">
+            <field name="name">estate.property.type.form</field>
+            <field name="model">estate.property.type</field>
+            <field name="arch" type="xml">
+                <form string="Property Type">
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button class="oe_stat_button" type="action" name="%(get_offer_count_action)d" icon="fa-alert">
+                                <field name="offer_count" string="Offers" widget="statinfo"/>
+                            </button>
+                        </div>
+                        <div class="oe_title">
+                            <h1><field nolabel="1" name="name"/></h1>
+                        </div>
+                        <group>
+                            <field name="property_ids">
+                                <tree string="Properties">
+                                    <field name="name" string="Title"/>
+                                    <field name="expected_price" string="Expected Price"/>
+                                    <field name="state" string="Status"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        
+
+        
+    </data>
+</odoo>
